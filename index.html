@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katze gefunden? – Gismo</title>
+
+  <style>
+    :root {
+      --bg: #f6f6f6;
+      --card: #ffffff;
+      --accent: #d8b48a;
+      --text: #2b2b2b;
+      --muted: #777;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 20px auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header {
+      text-align: center;
+    }
+
+    .header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+      border: 4px solid var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 6px;
+      font-size: 15px;
+    }
+
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #444;
+      letter-spacing: 0.5px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      gap: 10px;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .value {
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .call-button {
+      display: block;
+      text-align: center;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .call-button.secondary {
+      background: #eee;
+    }
+
+    /* NOTFALL-STYLING */
+    .emergency-title {
+      color: #b94a48;
+    }
+
+    .call-button.emergency {
+      background: #e07a7a;
+      color: #000;
+    }
+
+    /* Tierarzt-Logo als dezentes Wasserzeichen */
+    .vet::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("tierarzt-logo.png") no-repeat center;
+      background-size: 220px;
+      background-position: center 5%;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="card header">
+      <img src="gismo.jpeg" alt="Gismo">
+      <h1>Gismo</h1>
+
+      <!-- PET-ID Platzhalter -->
+      <div class="subtitle" style="
+        font-family: monospace;
+        color: var(--accent);
+        font-weight: 600;
+      ">
+        PET-ID: K8F3A2
+      </div>
+
+      <div class="subtitle">Danke, dass du mich Nachhause bringst</div>
+    </div>
+
+    <!-- KATZENDATEN -->
+    <div class="card">
+      <div class="section-title">Das bin Ich</div>
+
+      <div class="row"><div class="label">Geburtsdatum</div><div class="value">09.07.2023</div></div>
+      <div class="row"><div class="label">Geschlecht</div><div class="value">Männlich</div></div>
+      <div class="row"><div class="label">Farbe</div><div class="value">Schwarz-weiß</div></div>
+      <div class="row"><div class="label">Kastriert</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Freigänger</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Gechippt</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Geimpft</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Mikrochip</div><div class="value">Vorhanden (Tierarzt)</div></div>
+      <div class="row"><div class="label">Hinweis</div><div class="value">! Bitte nicht Einsperren und mich nicht Füttern !</div></div>
+    </div>
+
+    <!-- KONTAKT -->
+    <div class="card">
+      <div class="section-title">Meine Besitzer</div>
+
+      <div class="row"><div class="label">Matthias Röthlisberger</div><div class="value">+41 79 862 91 15</div></div>
+      <a class="call-button" href="tel:+41798629115">📞 Matthias Röthlisberger anrufen</a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">E-Mail</div>
+        <div class="value">matthias@pet-id.page</div>
+      </div>
+      <a class="call-button secondary" href="mailto:matthias@pet-id.page">
+        ✉️ E-Mail an Matthias senden
+      </a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">Melanie Röthlisberger</div>
+        <div class="value">+41 79 252 51 70</div>
+      </div>
+      <a class="call-button" href="tel:+41792525170">📞 Melanie Röthlisberger anrufen</a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">E-Mail</div>
+        <div class="value">melanie@pet-id.page</div>
+      </div>
+      <a class="call-button secondary" href="mailto:melanie@pet-id.page">
+        ✉️ E-Mail an Melanie senden
+      </a>
+    </div>
+
+    <!-- TIERARZT -->
+    <div class="card vet">
+      <div class="section-title">Meine Tierärztin</div>
+
+      <div class="row"><div class="label">Praxis</div><div class="value">VetDaheim</div></div>
+      <div class="row"><div class="label">Tierärztin</div><div class="value">Dr. Antke Messmer</div></div>
+      <div class="row"><div class="label">Telefon</div><div class="value">079 812 08 08</div></div>
+
+      <a class="call-button" href="tel:+41798120808">🏥 Tierarzt anrufen</a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">E-Mail</div>
+        <div class="value">hallo@vetdaheim.ch</div>
+      </div>
+      <a class="call-button secondary" href="mailto:hallo@vetdaheim.ch">
+        ✉️ E-Mail an Tierarzt senden
+      </a>
+
+      <a class="call-button secondary" href="https://vetdaheim.ch" target="_blank">
+        🌐 Website öffnen
+      </a>
+
+      <!-- NOTFALL -->
+      <div class="section-title emergency-title" style="margin-top:20px;">
+        🚨 Ärztlicher Notfall
+      </div>
+
+      <div class="row">
+        <div class="label">Klinik</div>
+        <div class="value">Bessy’s Kleintierklinik</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Adresse</div>
+        <div class="value">
+          Eichwatt 3<br>
+          8105 Watt / Regensdorf
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Notfall-Telefon</div>
+        <div class="value">044 871 60 60</div>
+      </div>
+
+      <a class="call-button emergency" href="tel:+41448716060">
+        🚑 Notfall-Klinik anrufen
+      </a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">Hinweis</div>
+        <div class="value">Nur bei akuten medizinischen Notfällen</div>
+      </div>
+    </div>
+
+    <!-- ZUHAUSE -->
+    <div class="card">
+      <div class="section-title">Hier wohne ich</div>
+      <div class="row">
+        <div class="label">Adresse</div>
+        <div class="value">
+          Chlupfwiesstrasse 21<br>
+          8165 Oberweningen<br>
+          Schweiz
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      Zuletzt aktualisiert: 15.12.2025<br>
+      ❤️ Danke fürs Nachschauen
+    </div>
+
+  </div>
+</body>
+</html>
