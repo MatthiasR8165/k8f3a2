@@ -5,7 +5,7 @@
 <title>PET-ID Editor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔥 CACHE KOMPLETT DEAKTIVIEREN (Browser + Cloudflare) -->
+<!-- 🔥 Cache komplett deaktivieren -->
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -101,9 +101,15 @@
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   }
 
-  /* 👉 WICHTIG: sorgt für identischen Abstand links & rechts */
+  /* Basis-Padding */
   .card-inner {
     padding: 26px 32px;
+  }
+
+  /* ✅ OPTISCHER AUSGLEICH:
+     rechte Grid-Spalte bekommt mehr Luft */
+  .grid > .card:nth-child(even) .card-inner {
+    padding-right: 48px;
   }
 
   h2 {
