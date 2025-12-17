@@ -1,325 +1,85 @@
-<!DOCTYPE html>
+function buildPetHTML(pet) {
+
+  const row = (label, value) =>
+    value ? `<div class="row"><div class="label">${label}</div><div class="value">${value}</div></div>` : "";
+
+  return `<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>${pet.meta.name} – PET-ID</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d8b48a">
 
-  <title>Haustier gefunden?</title>
+<link rel="icon" href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
-  <!-- Icons -->
-  <link rel="icon" href="/assets/icons/favicon.ico?v=1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=1">
-  <meta name="theme-color" content="#d8b48a">
-
-  <!-- ===============================
-       DESIGN
-       =============================== -->
-  <style>
-    :root {
-      --bg: #f6f6f6;
-      --card: #ffffff;
-      --accent: #d8b48a;
-      --text: #2b2b2b;
-      --muted: #777;
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .container {
-      max-width: 520px;
-      margin: 20px auto;
-      padding: 16px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header {
-      text-align: center;
-    }
-
-    .header img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 16px;
-      border: 4px solid var(--accent);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 26px;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      margin-top: 6px;
-      font-size: 15px;
-    }
-
-    .section-title {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #444;
-      letter-spacing: 0.5px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid #eee;
-      font-size: 15px;
-      gap: 10px;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .value {
-      font-weight: 500;
-      text-align: right;
-    }
-
-    .call-button {
-      display: block;
-      text-align: center;
-      background: var(--accent);
-      color: #000;
-      text-decoration: none;
-      padding: 14px;
-      border-radius: 10px;
-      font-weight: 600;
-      margin-top: 10px;
-    }
-
-    .call-button.secondary {
-      background: #eee;
-    }
-
-    .call-button.emergency {
-      background: #e07a7a;
-      color: #000;
-    }
-
-    .emergency-title {
-      color: #b94a48;
-    }
-
-    .vet::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("/tierarzt-logo.png") no-repeat center;
-      background-size: 220px;
-      background-position: center 5%;
-      opacity: 0.08;
-      pointer-events: none;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 20px;
-    }
-
-    .footer a {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-
-  <!-- ===============================
-       PET.JSON LOADER
-       =============================== -->
-  <script>
-    let pet = null;
-
-    async function loadPet() {
-      try {
-        const res = await fetch("./pet.json", { cache: "no-store" });
-        if (!res.ok) throw new Error("pet.json nicht gefunden");
-        pet = await res.json();
-        renderPet();
-      } catch (e) {
-        document.body.innerHTML =
-          "<h2 style='padding:20px'>🐾 Tierdaten nicht verfügbar</h2>";
-        console.error(e);
-      }
-    }
-  </script>
+<style>
+body{margin:0;font-family:system-ui;background:#f6f6f6;color:#2b2b2b}
+.container{max-width:520px;margin:20px auto;padding:16px}
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;
+box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.header{text-align:center}
+.header img{width:200px;height:200px;border-radius:50%;object-fit:cover;
+border:4px solid #d8b48a;margin-bottom:12px}
+h1{margin:0}
+.subtitle{color:#777;margin-top:6px}
+.section-title{font-weight:600;margin-bottom:10px}
+.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee}
+.row:last-child{border-bottom:none}
+.label{color:#777}
+.value{text-align:right;font-weight:500}
+.button{display:block;text-align:center;background:#d8b48a;
+padding:14px;border-radius:10px;color:#000;text-decoration:none;margin-top:10px}
+</style>
 </head>
 
-<body onload="loadPet()">
-
+<body>
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="card header">
-    <img id="pet-image" alt="Tierbild">
-    <h1 id="pet-name"></h1>
-
-    <div class="subtitle" style="
-      font-family: monospace;
-      color: var(--accent);
-      font-weight: 600;
-    ">
-      PET-ID: <span id="pet-id"></span>
-    </div>
-
-    <div class="subtitle" id="pet-subtitle"></div>
-  </div>
-
-  <!-- TIERDATEN -->
-  <div class="card" id="animal"></div>
-
-  <!-- BESITZER -->
-  <div class="card" id="owners"></div>
-
-  <!-- TIERARZT + NOTFALL -->
-  <div class="card vet" id="vet"></div>
-
-  <!-- ZUHAUSE -->
-  <div class="card" id="home"></div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <a href="https://pet-id.page/impressum.html">Impressum</a> ·
-    <a href="https://pet-id.page/datenschutz.html">Datenschutz</a><br>
-    Zuletzt aktualisiert: <span id="updated"></span><br>
-    ❤️ Danke fürs Nachschauen
-  </div>
-
+<div class="card header">
+${pet.meta.image ? `<img src="${pet.meta.image}" alt="${pet.meta.name}">` : ""}
+<h1>${pet.meta.name}</h1>
+<div class="subtitle">PET-ID: ${pet.meta.pet_id}</div>
+${pet.meta.subtitle ? `<div class="subtitle">${pet.meta.subtitle}</div>` : ""}
 </div>
 
-<!-- ===============================
-     RENDER LOGIK
-     =============================== -->
-<script>
-function renderPet() {
+<div class="card">
+<div class="section-title">Tierdaten</div>
+${row("Tierart", pet.animal.species)}
+${row("Geschlecht", pet.animal.gender)}
+${row("Geburtsdatum", pet.animal.birthdate)}
+${row("Farbe", pet.animal.color)}
+${row("Rasse", pet.animal.breed)}
+${row("Kastriert", pet.animal.castrated)}
+${row("Freigänger", pet.animal.outdoor)}
+${row("Gechippt", pet.animal.chipped)}
+${row("Geimpft", pet.animal.vaccinated)}
+${row("Mikrochip", pet.animal.microchip)}
+${row("Hinweis", pet.animal.note)}
+</div>
 
-  /* HEADER */
-  document.getElementById("pet-image").src = pet.meta.image;
-  document.getElementById("pet-name").textContent = pet.meta.name;
-  document.getElementById("pet-id").textContent = pet.meta.pet_id;
-  document.getElementById("pet-subtitle").textContent = pet.meta.subtitle;
-  document.getElementById("updated").textContent = pet.meta.last_updated;
+<div class="card">
+<div class="section-title">Besitzer</div>
+${row(pet.owner1.name, pet.owner1.phone)}
+${pet.owner1.email ? `<a class="button" href="mailto:${pet.owner1.email}">E-Mail senden</a>` : ""}
+</div>
 
-  /* ANIMAL */
-  const animal = document.getElementById("animal");
-  animal.innerHTML = `<div class="section-title">Das bin ich</div>`;
+${pet.owner2.name ? `
+<div class="card">
+<div class="section-title">Weiterer Kontakt</div>
+${row(pet.owner2.name, pet.owner2.phone)}
+</div>` : ""}
 
-  const labels = {
-    species: "Tierart",
-    gender: "Geschlecht",
-    birthdate: "Geburtsdatum",
-    color: "Farbe",
-    breed: "Rasse",
-    castrated: "Kastriert",
-    outdoor: "Freigänger",
-    chipped: "Gechippt",
-    vaccinated: "Geimpft",
-    microchip: "Mikrochip",
-    note: "Hinweis"
-  };
+<div class="card">
+<div class="section-title">Tierarzt</div>
+${row("Praxis", pet.vet.practice)}
+${row("Tierärztin", pet.vet.doctor)}
+${row("Telefon", pet.vet.phone)}
+${pet.vet.website ? `<a class="button" href="${pet.vet.website}" target="_blank">Website</a>` : ""}
+</div>
 
-  Object.entries(pet.animal).forEach(([key, value]) => {
-    if (!value) return;
-    animal.innerHTML += `
-      <div class="row">
-        <div class="label">${labels[key] || key}</div>
-        <div class="value">${value}</div>
-      </div>`;
-  });
-
-  /* OWNERS */
-  const owners = document.getElementById("owners");
-  owners.innerHTML = `<div class="section-title">Meine Besitzer</div>`;
-
-  pet.owners.forEach(owner => {
-    owners.innerHTML += `
-      <div class="row">
-        <div class="label">${owner.name}</div>
-        <div class="value">${owner.phone}</div>
-      </div>
-      <a class="call-button" href="tel:${owner.phone}">
-        📞 ${owner.name} anrufen
-      </a>
-      <a class="call-button secondary" href="mailto:${owner.email}">
-        ✉️ E-Mail senden
-      </a>`;
-  });
-
-  /* VET + EMERGENCY */
-  const vet = document.getElementById("vet");
-  vet.innerHTML = `
-    <div class="section-title">Meine Tierärztin</div>
-
-    <div class="row"><div class="label">Praxis</div><div class="value">${pet.vet.practice}</div></div>
-    <div class="row"><div class="label">Tierärztin</div><div class="value">${pet.vet.doctor}</div></div>
-
-    <a class="call-button" href="tel:${pet.vet.phone}">
-      🏥 Tierarzt anrufen
-    </a>
-    <a class="call-button secondary" href="mailto:${pet.vet.email}">
-      ✉️ E-Mail an Tierarzt senden
-    </a>
-    <a class="call-button secondary" href="${pet.vet.website}" target="_blank">
-      🌐 Website öffnen
-    </a>
-
-    <div class="section-title emergency-title" style="margin-top:20px;">
-      🚨 Ärztlicher Notfall
-    </div>
-
-    <div class="row"><div class="label">Klinik</div><div class="value">${pet.emergency.clinic}</div></div>
-    <div class="row"><div class="label">Adresse</div><div class="value">${pet.emergency.address_html}</div></div>
-
-    <a class="call-button emergency" href="tel:${pet.emergency.phone}">
-      🚑 Notfall-Klinik anrufen
-    </a>
-  `;
-
-  /* HOME */
-  const home = document.getElementById("home");
-  home.innerHTML = `
-    <div class="section-title">Hier wohne ich</div>
-    <div class="row">
-      <div class="label">Adresse</div>
-      <div class="value">${pet.home.address_html}</div>
-    </div>`;
-}
-</script>
-
+</div>
 </body>
-</html>
+</html>`;
+}
