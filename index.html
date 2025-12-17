@@ -12,8 +12,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png?v=1">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=1">
 
+  <!-- Browser / OS Farbe -->
   <meta name="theme-color" content="#d8b48a">
 
+  <!-- Grundlayout -->
   <style>
     :root {
       --bg: #f6f6f6;
@@ -145,13 +147,11 @@
       text-align: center;
       font-size: 13px;
       color: var(--muted);
-      margin-top: 24px;
-      padding-top: 14px;
-      border-top: 1px solid #eee;
+      margin-top: 20px;
     }
 
     .footer a {
-      color: #777;
+      color: var(--muted);
       text-decoration: none;
       font-weight: 500;
     }
@@ -163,94 +163,145 @@
 </head>
 
 <body>
-<div class="container">
+  <div class="container">
 
-  <!-- HEADER -->
-  <div class="card header">
-    <img src="gismo.jpeg" alt="Gismo">
-    <h1>Gismo</h1>
+    <!-- HEADER -->
+    <div class="card header">
+      <img src="gismo.jpeg" alt="Gismo">
+      <h1>Gismo</h1>
 
-    <div class="subtitle" style="font-family: monospace; color: var(--accent); font-weight: 600;">
-      PET-ID: K8F3A2
+      <!-- PET-ID Platzhalter -->
+      <div class="subtitle" style="
+        font-family: monospace;
+        color: var(--accent);
+        font-weight: 600;
+      ">
+        PET-ID: K8F3A2
+      </div>
+
+      <div class="subtitle">Danke, dass du mich Nachhause bringst</div>
     </div>
 
-    <div class="subtitle">Danke, dass du mich Nachhause bringst</div>
-  </div>
+    <!-- KATZENDATEN -->
+    <div class="card">
+      <div class="section-title">Das bin Ich</div>
 
-  <!-- KATZENDATEN -->
-  <div class="card">
-    <div class="section-title">Das bin Ich</div>
-    <div class="row"><div class="label">Geburtsdatum</div><div class="value">09.07.2023</div></div>
-    <div class="row"><div class="label">Geschlecht</div><div class="value">Männlich</div></div>
-    <div class="row"><div class="label">Farbe</div><div class="value">Schwarz-weiß</div></div>
-    <div class="row"><div class="label">Kastriert</div><div class="value">Ja</div></div>
-    <div class="row"><div class="label">Freigänger</div><div class="value">Ja</div></div>
-    <div class="row"><div class="label">Gechippt</div><div class="value">Ja</div></div>
-    <div class="row"><div class="label">Geimpft</div><div class="value">Ja</div></div>
-    <div class="row"><div class="label">Mikrochip</div><div class="value">Ja</div></div>
-    <div class="row"><div class="label">Hinweis</div><div class="value">! Bitte nicht Einsperren und mich nicht füttern !</div></div>
-  </div>
-
-  <!-- BESITZER -->
-  <div class="card">
-    <div class="section-title">Meine Besitzer</div>
-
-    <div class="row"><div class="label">Matthias Röthlisberger</div><div class="value">+41 79 862 91 15</div></div>
-    <a class="call-button" href="tel:+41798629115">📞 Matthias anrufen</a>
-
-    <div class="row" style="margin-top:12px;">
-      <div class="label">E-Mail</div>
-      <div class="value">matthias@pet-id.page</div>
+      <div class="row"><div class="label">Geburtsdatum</div><div class="value">09.07.2023</div></div>
+      <div class="row"><div class="label">Geschlecht</div><div class="value">Männlich</div></div>
+      <div class="row"><div class="label">Farbe</div><div class="value">Schwarz-weiß</div></div>
+      <div class="row"><div class="label">Kastriert</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Freigänger</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Gechippt</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Geimpft</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Mikrochip</div><div class="value">Ja</div></div>
+      <div class="row"><div class="label">Hinweis</div><div class="value">! Bitte nicht Einsperren und mich nicht Füttern !</div></div>
     </div>
-    <a class="call-button secondary" href="mailto:matthias@pet-id.page">✉️ E-Mail an Matthias</a>
 
-    <div class="row" style="margin-top:14px;">
-      <div class="label">Melanie Röthlisberger</div>
-      <div class="value">+41 79 252 51 70</div>
+    <!-- KONTAKT -->
+    <div class="card">
+      <div class="section-title">Meine Besitzer</div>
+
+      <div class="row"><div class="label">Matthias Röthlisberger</div><div class="value">+41 79 862 91 15</div></div>
+      <a class="call-button" href="tel:+41798629115">📞 Matthias Röthlisberger anrufen</a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">E-Mail</div>
+        <div class="value">matthias@pet-id.page</div>
+      </div>
+      <a class="call-button secondary" href="mailto:matthias@pet-id.page">
+        ✉️ E-Mail an Matthias senden
+      </a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">Melanie Röthlisberger</div>
+        <div class="value">+41 79 252 51 70</div>
+      </div>
+      <a class="call-button" href="tel:+41792525170">📞 Melanie Röthlisberger anrufen</a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">E-Mail</div>
+        <div class="value">melanie@pet-id.page</div>
+      </div>
+      <a class="call-button secondary" href="mailto:melanie@pet-id.page">
+        ✉️ E-Mail an Melanie senden
+      </a>
     </div>
-    <a class="call-button" href="tel:+41792525170">📞 Melanie anrufen</a>
 
-    <div class="row" style="margin-top:12px;">
-      <div class="label">E-Mail</div>
-      <div class="value">melanie@pet-id.page</div>
+    <!-- TIERARZT -->
+    <div class="card vet">
+      <div class="section-title">Meine Tierärztin</div>
+
+      <div class="row"><div class="label">Praxis</div><div class="value">VetDaheim</div></div>
+      <div class="row"><div class="label">Tierärztin</div><div class="value">Dr. Antke Messmer</div></div>
+      <div class="row"><div class="label">Telefon</div><div class="value">079 812 08 08</div></div>
+
+      <a class="call-button" href="tel:+41798120808">🏥 Tierarzt anrufen</a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">E-Mail</div>
+        <div class="value">hallo@vetdaheim.ch</div>
+      </div>
+      <a class="call-button secondary" href="mailto:hallo@vetdaheim.ch">
+        ✉️ E-Mail an Tierarzt senden
+      </a>
+
+      <a class="call-button secondary" href="https://vetdaheim.ch" target="_blank">
+        🌐 Website öffnen
+      </a>
+
+      <!-- NOTFALL -->
+      <div class="section-title emergency-title" style="margin-top:20px;">
+        🚨 Ärztlicher Notfall
+      </div>
+
+      <div class="row">
+        <div class="label">Klinik</div>
+        <div class="value">Bessy’s Kleintierklinik</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Adresse</div>
+        <div class="value">
+          Eichwatt 3<br>
+          8105 Watt / Regensdorf
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Notfall-Telefon</div>
+        <div class="value">044 871 60 60</div>
+      </div>
+
+      <a class="call-button emergency" href="tel:+41448716060">
+        🚑 Notfall-Klinik anrufen
+      </a>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="label">Hinweis</div>
+        <div class="value">Nur bei akuten medizinischen Notfällen</div>
+      </div>
     </div>
-    <a class="call-button secondary" href="mailto:melanie@pet-id.page">✉️ E-Mail an Melanie</a>
-  </div>
 
-  <!-- TIERARZT -->
-  <div class="card vet">
-    <div class="section-title">Meine Tierärztin</div>
-
-    <div class="row"><div class="label">Praxis</div><div class="value">VetDaheim</div></div>
-    <div class="row"><div class="label">Tierärztin</div><div class="value">Dr. Antke Messmer</div></div>
-    <div class="row"><div class="label">Telefon</div><div class="value">079 812 08 08</div></div>
-
-    <a class="call-button" href="tel:+41798120808">🏥 Tierarzt anrufen</a>
-
-    <div class="row" style="margin-top:12px;">
-      <div class="label">E-Mail</div>
-      <div class="value">hallo@vetdaheim.ch</div>
+    <!-- ZUHAUSE -->
+    <div class="card">
+      <div class="section-title">Hier wohne ich</div>
+      <div class="row">
+        <div class="label">Adresse</div>
+        <div class="value">
+          8165 Oberweningen<br>
+          Schweiz
+        </div>
+      </div>
     </div>
-    <a class="call-button secondary" href="mailto:hallo@vetdaheim.ch">✉️ E-Mail an Tierarzt</a>
 
-    <a class="call-button secondary" href="https://vetdaheim.ch" target="_blank">
-      🌐 Website öffnen
-    </a>
+    <!-- FOOTER (ergänzt) -->
+    <div class="footer">
+      <a href="https://pet-id.page/impressum.html">Impressum</a> ·
+      <a href="https://pet-id.page/datenschutz.html">Datenschutz</a><br>
+      Zuletzt aktualisiert: 15.12.2025<br>
+      ❤️ Danke fürs Nachschauen
+    </div>
 
-    <div class="section-title emergency-title" style="margin-top:20px;">🚨 Ärztlicher Notfall</div>
-    <div class="row"><div class="label">Klinik</div><div class="value">Bessy’s Kleintierklinik</div></div>
-    <div class="row"><div class="label">Adresse</div><div class="value">Eichwatt 3<br>8105 Watt / Regensdorf</div></div>
-    <div class="row"><div class="label">Notfall-Telefon</div><div class="value">044 871 60 60</div></div>
-    <a class="call-button emergency" href="tel:+41448716060">🚑 Notfall-Klinik anrufen</a>
   </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <a href="https://pet-id.page/impressum.html">Impressum</a> ·
-    <a href="https://pet-id.page/datenschutz.html">Datenschutz</a><br>
-    Zuletzt aktualisiert: 15.12.2025 · ❤️ Danke fürs Nachschauen
-  </div>
-
-</div>
 </body>
 </html>
