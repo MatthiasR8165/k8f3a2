@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "pet_id": "",
+    "name": "",
+    "subtitle": "",
+    "image": "",
+    "last_updated": ""
+  },
+  "animal": {
+    "species": "",
+    "gender": "",
+    "birthdate": "",
+    "color": "",
+    "breed": "",
+    "castrated": "",
+    "outdoor": "",
+    "chipped": "",
+    "vaccinated": "",
+    "microchip": "",
+    "note": ""
+  },
+  "owner1": {
+    "name": "",
+    "phone": "",
+    "email": ""
+  },
+  "owner2": {
+    "name": "",
+    "phone": "",
+    "email": ""
+  },
+  "vet": {
+    "practice": "",
+    "doctor": "",
+    "phone": "",
+    "email": "",
+    "website": ""
+  },
+  "emergency": {
+    "clinic": "",
+    "address": "",
+    "phone": "",
+    "note": ""
+  },
+  "home": {
+    "address": ""
+  }
+}
