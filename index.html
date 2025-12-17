@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haustier gefunden?</title>
+
+  <!-- Icons -->
+  <link rel="icon" href="/assets/icons/favicon.ico?v=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=1">
+  <meta name="theme-color" content="#d8b48a">
+
+  <!-- ===============================
+       🐾 ZENTRALE PET-DATEN – NUR HIER ÄNDERN
+       =============================== -->
+  <script>
+    const pet = {
+      pet_id: "K8F3A2",
+      name: "Gismo",
+      image: "gismo.jpeg",
+      subtitle: "Danke, dass du mich Nachhause bringst",
+
+      birthdate: "09.07.2023",
+      gender: "Männlich",
+      color: "Schwarz-weiß",
+      breed: "EKH",
+      castrated: "Ja",
+      outdoor: "Ja",
+      chipped: "Ja",
+      vaccinated: "Ja",
+      microchip: "Ja",
+      note: "! Bitte nicht Einsperren und mich nicht Füttern !",
+
+      owners: [
+        {
+          name: "Matthias Röthlisberger",
+          phone: "+41798629115",
+          email: "matthias@pet-id.page"
+        },
+        {
+          name: "Melanie Röthlisberger",
+          phone: "+41792525170",
+          email: "melanie@pet-id.page"
+        }
+      ],
+
+      vet: {
+        practice: "VetDaheim",
+        doctor: "Dr. Antke Messmer",
+        phone: "+41798120808",
+        email: "hallo@vetdaheim.ch",
+        website: "https://vetdaheim.ch"
+      },
+
+      emergency: {
+        clinic: "Bessy’s Kleintierklinik",
+        address: "Eichwatt 3<br>8105 Watt / Regensdorf",
+        phone: "+41448716060",
+        note: "Nur bei akuten medizinischen Notfällen"
+      },
+
+      home: "8165 Oberweningen<br>Schweiz",
+      updated: "15.12.2025"
+    };
+  </script>
+
+  <!-- ===============================
+       🎨 DESIGN (unverändert)
+       =============================== -->
+  <style>
+    :root {
+      --bg:#f6f6f6;--card:#fff;--accent:#d8b48a;
+      --text:#2b2b2b;--muted:#777;
+    }
+    *{box-sizing:border-box;font-family:system-ui,-apple-system}
+    body{margin:0;background:var(--bg);color:var(--text)}
+    .container{max-width:520px;margin:20px auto;padding:16px}
+    .card{background:var(--card);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+    .header{text-align:center}
+    .header img{width:200px;height:200px;border-radius:50%;object-fit:cover;border:4px solid var(--accent)}
+    h1{margin:10px 0 0}
+    .subtitle{color:var(--muted);margin-top:6px}
+    .section-title{font-weight:600;margin-bottom:10px;color:#444}
+    .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;gap:10px}
+    .row:last-child{border-bottom:none}
+    .label{color:var(--muted)}
+    .value{text-align:right;font-weight:500}
+    .call-button{display:block;text-align:center;background:var(--accent);color:#000;text-decoration:none;padding:14px;border-radius:10px;font-weight:600;margin-top:10px}
+    .call-button.secondary{background:#eee}
+    .call-button.emergency{background:#e07a7a}
+    .footer{text-align:center;font-size:13px;color:var(--muted)}
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="card header">
+    <img id="pet-image">
+    <h1 id="pet-name"></h1>
+    <div class="subtitle" style="font-family:monospace;color:var(--accent);font-weight:600">
+      PET-ID: <span id="pet-id"></span>
+    </div>
+    <div class="subtitle" id="pet-subtitle"></div>
+  </div>
+
+  <!-- DATEN -->
+  <div class="card">
+    <div class="section-title">Das bin ich</div>
+    <div class="row" data-field="birthdate"><div class="label">Geburtsdatum</div><div class="value"></div></div>
+    <div class="row" data-field="gender"><div class="label">Geschlecht</div><div class="value"></div></div>
+    <div class="row" data-field="color"><div class="label">Farbe</div><div class="value"></div></div>
+    <div class="row" data-field="breed"><div class="label">Rasse</div><div class="value"></div></div>
+    <div class="row" data-field="castrated"><div class="label">Kastriert</div><div class="value"></div></div>
+    <div class="row" data-field="outdoor"><div class="label">Freigänger</div><div class="value"></div></div>
+    <div class="row" data-field="note"><div class="label">Hinweis</div><div class="value"></div></div>
+  </div>
+
+  <!-- BESITZER -->
+  <div class="card" id="owners"></div>
+
+  <!-- TIERARZT -->
+  <div class="card" data-section="vet">
+    <div class="section-title">Meine Tierärztin</div>
+    <div class="row" data-vet="practice"><div class="label">Praxis</div><div class="value"></div></div>
+    <div class="row" data-vet="doctor"><div class="label">Tierärztin</div><div class="value"></div></div>
+    <a class="call-button" id="vet-call">🏥 Tierarzt anrufen</a>
+  </div>
+
+  <!-- ZUHAUSE -->
+  <div class="card">
+    <div class="section-title">Hier wohne ich</div>
+    <div class="row"><div class="label">Adresse</div><div class="value" id="home"></div></div>
+  </div>
+
+  <div class="footer">
+    Zuletzt aktualisiert: <span id="updated"></span><br>
+    ❤️ Danke fürs Nachschauen
+  </div>
+
+</div>
+
+<!-- ===============================
+     ⚙️ AUTOMATIK-LOGIK
+     =============================== -->
+<script>
+  pet && (
+    document.getElementById("pet-image").src = pet.image,
+    document.getElementById("pet-name").textContent = pet.name,
+    document.getElementById("pet-id").textContent = pet.pet_id,
+    document.getElementById("pet-subtitle").textContent = pet.subtitle,
+    document.getElementById("home").innerHTML = pet.home,
+    document.getElementById("updated").textContent = pet.updated
+  );
+
+  document.querySelectorAll("[data-field]").forEach(el => {
+    const k = el.dataset.field;
+    if (!pet[k]) el.remove();
+    else el.querySelector(".value").textContent = pet[k];
+  });
+
+  const owners = document.getElementById("owners");
+  owners.innerHTML = `<div class="section-title">Meine Besitzer</div>`;
+  pet.owners.forEach(o => {
+    owners.innerHTML += `
+      <div class="row"><div class="label">${o.name}</div><div class="value">${o.phone}</div></div>
+      <a class="call-button" href="tel:${o.phone}">📞 ${o.name} anrufen</a>
+      <a class="call-button secondary" href="mailto:${o.email}">✉️ E-Mail senden</a>
+    `;
+  });
+
+  document.querySelectorAll("[data-vet]").forEach(el => {
+    const k = el.dataset.vet;
+    if (!pet.vet[k]) el.remove();
+    else el.querySelector(".value").textContent = pet.vet[k];
+  });
+
+  document.getElementById("vet-call").href = "tel:" + pet.vet.phone;
+</script>
+</body>
+</html>
