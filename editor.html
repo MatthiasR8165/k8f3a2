@@ -5,6 +5,11 @@
 <title>PET-ID Editor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- 🔥 CACHE KOMPLETT DEAKTIVIEREN (Browser + Cloudflare) -->
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <style>
   :root {
     --bg: #f6f6f6;
@@ -43,6 +48,11 @@
     text-align: center;
   }
 
+  .lock h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
   .lock input {
     width: 100%;
     padding: 14px;
@@ -70,13 +80,13 @@
     display: none;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 32px;          /* ← symmetrisch */
+    padding: 32px;
   }
 
   .grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 32px;              /* ← mehr Luft */
+    gap: 32px;
   }
 
   @media (max-width: 900px) {
@@ -91,9 +101,9 @@
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   }
 
-  /* 👉 DAS IST DER WICHTIGE FIX */
+  /* 👉 WICHTIG: sorgt für identischen Abstand links & rechts */
   .card-inner {
-    padding: 26px 32px;     /* ← links = rechts garantiert */
+    padding: 26px 32px;
   }
 
   h2 {
@@ -111,19 +121,19 @@
   input,
   textarea {
     width: 100%;
-    padding: 12px 14px;     /* ← symmetrisch */
+    padding: 12px 14px;
     border-radius: 12px;
     border: 1px solid #ccc;
     font-size: 15px;
   }
 
+  input[type="file"] {
+    padding: 10px;
+  }
+
   textarea {
     resize: vertical;
     min-height: 70px;
-  }
-
-  input[type="file"] {
-    padding: 10px;          /* ← File-Input entschärft */
   }
 
   .actions {
