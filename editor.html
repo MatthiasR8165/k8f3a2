@@ -6,164 +6,236 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+  :root {
+    --bg: #f6f6f6;
+    --card: #ffffff;
+    --accent: #d8b48a;
+    --text: #2b2b2b;
+    --muted: #777;
+  }
+
   body {
-    margin:0;
-    font-family:system-ui,-apple-system;
-    background:#f6f6f6;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  /* ===============================
+     🔐 LOCK SCREEN
+     =============================== */
+  .lock-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
   }
 
   .lock {
-    max-width:360px;
-    margin:80px auto;
-    background:#fff;
-    padding:24px;
-    border-radius:14px;
-    box-shadow:0 4px 14px rgba(0,0,0,.06);
-    text-align:center;
+    width: 100%;
+    max-width: 520px;              /* ← deutlich breiter */
+    background: var(--card);
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    text-align: center;
   }
 
+  .lock h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .lock input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .lock button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ===============================
+     ✏️ EDITOR
+     =============================== */
   .editor {
-    max-width:1200px;
-    margin:auto;
-    padding:16px;
-    display:none;
+    display: none;
+    max-width: 1400px;             /* ← breit */
+    margin: 0 auto;
+    padding: 32px;
   }
 
   .grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
   }
 
-  @media(max-width:900px){
-    .grid{grid-template-columns:1fr}
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .card {
-    background:#fff;
-    border-radius:14px;
-    padding:16px;
-    box-shadow:0 4px 14px rgba(0,0,0,.06);
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px 26px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   }
 
-  h2 { margin-top:0 }
-  label { display:block; font-size:13px; margin-top:10px; color:#555 }
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    margin-top: 12px;
+    color: var(--muted);
+  }
+
   input, textarea {
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    font-size:15px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
   }
 
-  textarea { min-height:60px }
-
-  button {
-    margin-top:14px;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    width:100%;
-    background:#d8b48a;
+  textarea {
+    resize: vertical;
+    min-height: 70px;
   }
 
-  .download { background:#4caf50; color:#fff }
+  .actions {
+    grid-column: 1 / -1;
+  }
+
+  .actions button {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+  }
+
+  .download {
+    background: #4caf50;
+    color: #fff;
+  }
 </style>
 </head>
 
 <body>
 
 <!-- 🔐 LOCK -->
-<div class="lock" id="lock">
-  <h2>🔐 PET-ID Editor</h2>
-  <input id="pin" placeholder="PIN">
-  <button onclick="unlock()">Entsperren</button>
+<div class="lock-wrapper" id="lockWrapper">
+  <div class="lock" id="lock">
+    <h2>🔐 PET-ID Editor</h2>
+    <input id="pin" placeholder="PIN">
+    <button onclick="unlock()">Entsperren</button>
+  </div>
 </div>
 
 <!-- ✏️ EDITOR -->
 <div class="editor" id="editor">
 
-<div class="grid">
+  <div class="grid">
 
-<div class="card">
-<h2>Meta</h2>
-<label>Name</label><input id="name">
-<label>PET-ID</label><input id="pet_id">
-<label>Untertitel</label><input id="subtitle">
-<label>Bild</label><input type="file" id="image">
-</div>
+    <div class="card">
+      <h2>Meta</h2>
+      <label>Name</label><input id="name">
+      <label>PET-ID</label><input id="pet_id">
+      <label>Untertitel</label><input id="subtitle">
+      <label>Bild</label><input type="file" id="image">
+    </div>
 
-<div class="card">
-<h2>Tierdaten</h2>
-<label>Tierart</label><input id="species">
-<label>Geschlecht</label><input id="gender">
-<label>Geburtsdatum</label><input id="birthdate">
-<label>Farbe</label><input id="color">
-<label>Rasse</label><input id="breed">
-<label>Kastriert</label><input id="castrated">
-<label>Freigänger</label><input id="outdoor">
-<label>Gechippt</label><input id="chipped">
-<label>Geimpft</label><input id="vaccinated">
-<label>Mikrochip</label><input id="microchip">
-<label>Hinweis</label><textarea id="note"></textarea>
-</div>
+    <div class="card">
+      <h2>Tierdaten</h2>
+      <label>Tierart</label><input id="species">
+      <label>Geschlecht</label><input id="gender">
+      <label>Geburtsdatum</label><input id="birthdate">
+      <label>Farbe</label><input id="color">
+      <label>Rasse</label><input id="breed">
+      <label>Kastriert</label><input id="castrated">
+      <label>Freigänger</label><input id="outdoor">
+      <label>Gechippt</label><input id="chipped">
+      <label>Geimpft</label><input id="vaccinated">
+      <label>Mikrochip</label><input id="microchip">
+      <label>Hinweis</label><textarea id="note"></textarea>
+    </div>
 
-<div class="card">
-<h2>Besitzer 1</h2>
-<label>Name</label><input id="o1_name">
-<label>Telefon</label><input id="o1_phone">
-<label>E-Mail</label><input id="o1_email">
-</div>
+    <div class="card">
+      <h2>Besitzer 1</h2>
+      <label>Name</label><input id="o1_name">
+      <label>Telefon</label><input id="o1_phone">
+      <label>E-Mail</label><input id="o1_email">
+    </div>
 
-<div class="card">
-<h2>Besitzer 2</h2>
-<label>Name</label><input id="o2_name">
-<label>Telefon</label><input id="o2_phone">
-<label>E-Mail</label><input id="o2_email">
-</div>
+    <div class="card">
+      <h2>Besitzer 2</h2>
+      <label>Name</label><input id="o2_name">
+      <label>Telefon</label><input id="o2_phone">
+      <label>E-Mail</label><input id="o2_email">
+    </div>
 
-<div class="card">
-<h2>Tierarzt</h2>
-<label>Praxis</label><input id="vet_practice">
-<label>Tierärztin</label><input id="vet_doctor">
-<label>Telefon</label><input id="vet_phone">
-<label>E-Mail</label><input id="vet_email">
-<label>Website</label><input id="vet_website">
-</div>
+    <div class="card">
+      <h2>Tierarzt</h2>
+      <label>Praxis</label><input id="vet_practice">
+      <label>Tierärztin</label><input id="vet_doctor">
+      <label>Telefon</label><input id="vet_phone">
+      <label>E-Mail</label><input id="vet_email">
+      <label>Website</label><input id="vet_website">
+    </div>
 
-<div class="card">
-<h2>Notfall</h2>
-<label>Klinik</label><input id="em_clinic">
-<label>Adresse (HTML erlaubt)</label><textarea id="em_address"></textarea>
-<label>Telefon</label><input id="em_phone">
-<label>Hinweis</label><input id="em_note">
-</div>
+    <div class="card">
+      <h2>Notfall</h2>
+      <label>Klinik</label><input id="em_clinic">
+      <label>Adresse (HTML erlaubt)</label><textarea id="em_address"></textarea>
+      <label>Telefon</label><input id="em_phone">
+      <label>Hinweis</label><input id="em_note">
+    </div>
 
-<div class="card">
-<h2>Zuhause</h2>
-<label>Adresse (HTML erlaubt)</label><textarea id="home"></textarea>
-</div>
+    <div class="card">
+      <h2>Zuhause</h2>
+      <label>Adresse (HTML erlaubt)</label><textarea id="home"></textarea>
+    </div>
 
-<div class="card">
-<h2>Export</h2>
-<button class="download" onclick="downloadJSON()">⬇️ pet.json herunterladen</button>
-<button class="download" onclick="downloadImage()">⬇️ Bild herunterladen</button>
-</div>
+    <div class="card actions">
+      <h2>Export</h2>
+      <button class="download" onclick="downloadJSON()">⬇️ pet.json herunterladen</button>
+      <button class="download" onclick="downloadImage()">⬇️ Bild herunterladen</button>
+    </div>
 
-</div>
+  </div>
 </div>
 
 <script>
 const EDITOR_PIN = "4711";
 let imageFile = null;
 
-function unlock(){
-  if(pin.value === EDITOR_PIN){
-    lock.style.display="none";
-    editor.style.display="block";
+function unlock() {
+  if (pin.value === EDITOR_PIN) {
+    lockWrapper.style.display = "none";
+    editor.style.display = "block";
   } else {
     alert("Falscher PIN");
   }
@@ -171,16 +243,16 @@ function unlock(){
 
 image.onchange = e => imageFile = e.target.files[0];
 
-function downloadJSON(){
+function downloadJSON() {
   const pet = {
-    meta:{
+    meta: {
       pet_id: pet_id.value,
       name: name.value,
       subtitle: subtitle.value,
       image: imageFile ? imageFile.name : "",
       last_updated: new Date().toISOString().slice(0,10)
     },
-    animal:{
+    animal: {
       species: species.value,
       gender: gender.value,
       birthdate: birthdate.value,
@@ -193,29 +265,31 @@ function downloadJSON(){
       microchip: microchip.value,
       note: note.value
     },
-    owners:[
-      {name:o1_name.value,phone:o1_phone.value,email:o1_email.value},
-      {name:o2_name.value,phone:o2_phone.value,email:o2_email.value}
+    owners: [
+      { name: o1_name.value, phone: o1_phone.value, email: o1_email.value },
+      { name: o2_name.value, phone: o2_phone.value, email: o2_email.value }
     ],
-    vet:{
+    vet: {
       practice: vet_practice.value,
       doctor: vet_doctor.value,
       phone: vet_phone.value,
       email: vet_email.value,
       website: vet_website.value
     },
-    emergency:{
+    emergency: {
       clinic: em_clinic.value,
       address_html: em_address.value,
       phone: em_phone.value,
       note: em_note.value
     },
-    home:{ address_html: home.value }
+    home: {
+      address_html: home.value
+    }
   };
 
   const blob = new Blob(
-    [JSON.stringify(pet,null,2)],
-    {type:"application/json"}
+    [JSON.stringify(pet, null, 2)],
+    { type: "application/json" }
   );
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -223,8 +297,11 @@ function downloadJSON(){
   a.click();
 }
 
-function downloadImage(){
-  if(!imageFile) return alert("Kein Bild ausgewählt");
+function downloadImage() {
+  if (!imageFile) {
+    alert("Kein Bild ausgewählt");
+    return;
+  }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(imageFile);
   a.download = imageFile.name;
