@@ -30,28 +30,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 32px;
   }
 
   .lock {
     width: 100%;
-    max-width: 520px;              /* ← deutlich breiter */
+    max-width: 520px;
     background: var(--card);
-    padding: 28px 32px;
-    border-radius: 16px;
+    padding: 32px;
+    border-radius: 18px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     text-align: center;
-  }
-
-  .lock h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
   }
 
   .lock input {
     width: 100%;
     padding: 14px;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 1px solid #ccc;
     font-size: 16px;
     margin-bottom: 16px;
@@ -73,15 +68,15 @@
      =============================== */
   .editor {
     display: none;
-    max-width: 1400px;             /* ← breit */
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 32px;
+    padding: 32px;          /* ← symmetrisch */
   }
 
   .grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 24px;
+    gap: 32px;              /* ← mehr Luft */
   }
 
   @media (max-width: 900px) {
@@ -92,27 +87,32 @@
 
   .card {
     background: var(--card);
-    border-radius: 16px;
-    padding: 22px 26px;
+    border-radius: 18px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  }
+
+  /* 👉 DAS IST DER WICHTIGE FIX */
+  .card-inner {
+    padding: 26px 32px;     /* ← links = rechts garantiert */
   }
 
   h2 {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
   }
 
   label {
     display: block;
     font-size: 13px;
-    margin-top: 12px;
+    margin-top: 14px;
     color: var(--muted);
   }
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
-    padding: 12px;
-    border-radius: 10px;
+    padding: 12px 14px;     /* ← symmetrisch */
+    border-radius: 12px;
     border: 1px solid #ccc;
     font-size: 15px;
   }
@@ -122,6 +122,10 @@
     min-height: 70px;
   }
 
+  input[type="file"] {
+    padding: 10px;          /* ← File-Input entschärft */
+  }
+
   .actions {
     grid-column: 1 / -1;
   }
@@ -129,7 +133,7 @@
   .actions button {
     width: 100%;
     padding: 16px;
-    border-radius: 12px;
+    border-radius: 14px;
     border: none;
     font-size: 16px;
     font-weight: 600;
@@ -148,7 +152,7 @@
 
 <!-- 🔐 LOCK -->
 <div class="lock-wrapper" id="lockWrapper">
-  <div class="lock" id="lock">
+  <div class="lock">
     <h2>🔐 PET-ID Editor</h2>
     <input id="pin" placeholder="PIN">
     <button onclick="unlock()">Entsperren</button>
@@ -157,18 +161,17 @@
 
 <!-- ✏️ EDITOR -->
 <div class="editor" id="editor">
-
   <div class="grid">
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Meta</h2>
       <label>Name</label><input id="name">
       <label>PET-ID</label><input id="pet_id">
       <label>Untertitel</label><input id="subtitle">
       <label>Bild</label><input type="file" id="image">
-    </div>
+    </div></div>
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Tierdaten</h2>
       <label>Tierart</label><input id="species">
       <label>Geschlecht</label><input id="gender">
@@ -181,49 +184,49 @@
       <label>Geimpft</label><input id="vaccinated">
       <label>Mikrochip</label><input id="microchip">
       <label>Hinweis</label><textarea id="note"></textarea>
-    </div>
+    </div></div>
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Besitzer 1</h2>
       <label>Name</label><input id="o1_name">
       <label>Telefon</label><input id="o1_phone">
       <label>E-Mail</label><input id="o1_email">
-    </div>
+    </div></div>
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Besitzer 2</h2>
       <label>Name</label><input id="o2_name">
       <label>Telefon</label><input id="o2_phone">
       <label>E-Mail</label><input id="o2_email">
-    </div>
+    </div></div>
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Tierarzt</h2>
       <label>Praxis</label><input id="vet_practice">
       <label>Tierärztin</label><input id="vet_doctor">
       <label>Telefon</label><input id="vet_phone">
       <label>E-Mail</label><input id="vet_email">
       <label>Website</label><input id="vet_website">
-    </div>
+    </div></div>
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Notfall</h2>
       <label>Klinik</label><input id="em_clinic">
       <label>Adresse (HTML erlaubt)</label><textarea id="em_address"></textarea>
       <label>Telefon</label><input id="em_phone">
       <label>Hinweis</label><input id="em_note">
-    </div>
+    </div></div>
 
-    <div class="card">
+    <div class="card"><div class="card-inner">
       <h2>Zuhause</h2>
       <label>Adresse (HTML erlaubt)</label><textarea id="home"></textarea>
-    </div>
+    </div></div>
 
-    <div class="card actions">
+    <div class="card actions"><div class="card-inner">
       <h2>Export</h2>
       <button class="download" onclick="downloadJSON()">⬇️ pet.json herunterladen</button>
       <button class="download" onclick="downloadImage()">⬇️ Bild herunterladen</button>
-    </div>
+    </div></div>
 
   </div>
 </div>
