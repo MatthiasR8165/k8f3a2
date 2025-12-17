@@ -1,198 +1,185 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>PET-ID Editor – Gismo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>PET-ID Editor – Gismo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body { font-family: system-ui,-apple-system; background:#f6f6f6; margin:0; padding:16px; }
-    .container { max-width: 800px; margin:auto; }
-    h1 { margin-bottom:6px; }
-    .hint { color:#666; font-size:14px; margin-bottom:16px; }
+<style>
+  body {
+    margin:0;
+    font-family:system-ui,-apple-system;
+    background:#f6f6f6;
+  }
 
-    .card {
-      background:#fff; border-radius:14px; padding:16px; margin-bottom:16px;
-      box-shadow:0 4px 14px rgba(0,0,0,.06);
+  .layout {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
     }
+  }
 
-    h3 { margin-top:0; }
-    label { display:block; margin-top:10px; font-size:13px; color:#555; }
-    input, textarea {
-      width:100%; padding:10px; border-radius:8px;
-      border:1px solid #ccc; font-size:15px;
-    }
-    textarea { resize:vertical; min-height:60px; }
+  h1 { margin:0 0 8px; }
 
-    button {
-      padding:14px; border:none; border-radius:10px;
-      font-size:16px; font-weight:600; cursor:pointer;
-      margin-top:10px;
-    }
-    .save { background:#d8b48a; }
-    .reset { background:#eee; margin-left:8px; }
-  </style>
+  .card {
+    background:#fff;
+    border-radius:14px;
+    padding:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,.06);
+  }
+
+  label {
+    display:block;
+    margin-top:10px;
+    font-size:13px;
+    color:#555;
+  }
+
+  input, textarea {
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+  }
+
+  textarea { resize:vertical; min-height:60px; }
+
+  button {
+    margin-top:14px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    width:100%;
+    background:#d8b48a;
+  }
+
+  /* Preview */
+  .preview {
+    background:#f6f6f6;
+    padding:12px;
+    border-radius:14px;
+  }
+
+  .preview-card {
+    background:#fff;
+    border-radius:14px;
+    padding:16px;
+    text-align:center;
+  }
+
+  .preview img {
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #d8b48a;
+    margin-bottom:10px;
+  }
+
+  .muted { color:#777; font-size:14px; }
+</style>
 </head>
 
 <body>
-<div class="container">
 
-  <h1>🐾 PET-ID Editor – Gismo</h1>
-  <div class="hint">Änderungen werden lokal im Browser gespeichert.</div>
+<div class="layout">
 
-  <!-- GRUND -->
+  <!-- EDITOR -->
   <div class="card">
-    <h3>Grunddaten</h3>
-    <label>Name</label><input id="name">
-    <label>PET-ID</label><input id="pet_id">
-    <label>Untertitel</label><input id="subtitle">
-    <label>Geburtsdatum</label><input id="birthdate">
-    <label>Geschlecht</label><input id="gender">
-    <label>Farbe</label><input id="color">
-    <label>Rasse</label><input id="breed">
-    <label>Kastriert</label><input id="castrated">
-    <label>Freigänger</label><input id="outdoor">
-    <label>Gechippt</label><input id="chipped">
-    <label>Geimpft</label><input id="vaccinated">
-    <label>Mikrochip</label><input id="microchip">
-    <label>Hinweis</label><textarea id="note"></textarea>
+    <h1>🐾 PET-ID Editor – Gismo</h1>
+    <p class="muted">Änderungen werden lokal im Browser gespeichert</p>
+
+    <label>Name</label>
+    <input id="name">
+
+    <label>PET-ID</label>
+    <input id="pet_id">
+
+    <label>Untertitel</label>
+    <input id="subtitle">
+
+    <label>Geburtsdatum</label>
+    <input id="birthdate">
+
+    <label>Bild hochladen</label>
+    <input type="file" accept="image/*" onchange="loadImage(event)">
+
+    <button onclick="save()">💾 Speichern</button>
   </div>
 
-  <!-- BESITZER -->
-  <div class="card">
-    <h3>Besitzer 1</h3>
-    <label>Name</label><input id="o1_name">
-    <label>Telefon</label><input id="o1_phone">
-    <label>E-Mail</label><input id="o1_email">
+  <!-- LIVE PREVIEW -->
+  <div class="preview">
+    <div class="preview-card">
+      <img id="p_img">
+      <h2 id="p_name">–</h2>
+      <div class="muted">PET-ID: <span id="p_id">–</span></div>
+      <div class="muted" id="p_subtitle">–</div>
+      <div class="muted" id="p_birthdate"></div>
+    </div>
   </div>
-
-  <div class="card">
-    <h3>Besitzer 2</h3>
-    <label>Name</label><input id="o2_name">
-    <label>Telefon</label><input id="o2_phone">
-    <label>E-Mail</label><input id="o2_email">
-  </div>
-
-  <!-- TIERARZT -->
-  <div class="card">
-    <h3>Tierarzt</h3>
-    <label>Praxis</label><input id="vet_practice">
-    <label>Tierärztin</label><input id="vet_doctor">
-    <label>Telefon</label><input id="vet_phone">
-    <label>E-Mail</label><input id="vet_email">
-    <label>Website</label><input id="vet_website">
-  </div>
-
-  <!-- NOTFALL -->
-  <div class="card">
-    <h3>Notfall</h3>
-    <label>Klinik</label><input id="em_clinic">
-    <label>Adresse (HTML erlaubt)</label><textarea id="em_address"></textarea>
-    <label>Telefon</label><input id="em_phone">
-    <label>Hinweis</label><input id="em_note">
-  </div>
-
-  <!-- ZUHAUSE -->
-  <div class="card">
-    <h3>Zuhause</h3>
-    <label>Adresse (HTML erlaubt)</label><textarea id="home"></textarea>
-  </div>
-
-  <button class="save" onclick="save()">💾 Speichern</button>
-  <button class="reset" onclick="resetData()">♻️ Reset</button>
 
 </div>
 
 <script>
   const pet = JSON.parse(localStorage.getItem("petData")) || {};
 
-  const map = id => document.getElementById(id);
-  const fill = (id, v) => map(id).value = v || "";
+  const $ = id => document.getElementById(id);
 
-  fill("name", pet.name);
-  fill("pet_id", pet.pet_id);
-  fill("subtitle", pet.subtitle);
-  fill("birthdate", pet.birthdate);
-  fill("gender", pet.gender);
-  fill("color", pet.color);
-  fill("breed", pet.breed);
-  fill("castrated", pet.castrated);
-  fill("outdoor", pet.outdoor);
-  fill("chipped", pet.chipped);
-  fill("vaccinated", pet.vaccinated);
-  fill("microchip", pet.microchip);
-  fill("note", pet.note);
+  function updatePreview() {
+    $("p_name").textContent = $("name").value || "—";
+    $("p_id").textContent = $("pet_id").value || "—";
+    $("p_subtitle").textContent = $("subtitle").value || "";
+    $("p_birthdate").textContent = $("birthdate").value || "";
 
-  fill("o1_name", pet.owners?.[0]?.name);
-  fill("o1_phone", pet.owners?.[0]?.phone);
-  fill("o1_email", pet.owners?.[0]?.email);
+    if (pet.image) $("p_img").src = pet.image;
+  }
 
-  fill("o2_name", pet.owners?.[1]?.name);
-  fill("o2_phone", pet.owners?.[1]?.phone);
-  fill("o2_email", pet.owners?.[1]?.email);
-
-  fill("vet_practice", pet.vet?.practice);
-  fill("vet_doctor", pet.vet?.doctor);
-  fill("vet_phone", pet.vet?.phone);
-  fill("vet_email", pet.vet?.email);
-  fill("vet_website", pet.vet?.website);
-
-  fill("em_clinic", pet.emergency?.clinic);
-  fill("em_address", pet.emergency?.address);
-  fill("em_phone", pet.emergency?.phone);
-  fill("em_note", pet.emergency?.note);
-
-  fill("home", pet.home);
+  function loadImage(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      pet.image = reader.result;
+      $("p_img").src = pet.image;
+    };
+    reader.readAsDataURL(file);
+  }
 
   function save() {
-    const data = {
-      ...pet,
-      name: name.value,
-      pet_id: pet_id.value,
-      subtitle: subtitle.value,
-      birthdate: birthdate.value,
-      gender: gender.value,
-      color: color.value,
-      breed: breed.value,
-      castrated: castrated.value,
-      outdoor: outdoor.value,
-      chipped: chipped.value,
-      vaccinated: vaccinated.value,
-      microchip: microchip.value,
-      note: note.value,
+    pet.name = $("name").value;
+    pet.pet_id = $("pet_id").value;
+    pet.subtitle = $("subtitle").value;
+    pet.birthdate = $("birthdate").value;
 
-      owners: [
-        { name:o1_name.value, phone:o1_phone.value, email:o1_email.value },
-        { name:o2_name.value, phone:o2_phone.value, email:o2_email.value }
-      ],
-
-      vet: {
-        practice: vet_practice.value,
-        doctor: vet_doctor.value,
-        phone: vet_phone.value,
-        email: vet_email.value,
-        website: vet_website.value
-      },
-
-      emergency: {
-        clinic: em_clinic.value,
-        address: em_address.value,
-        phone: em_phone.value,
-        note: em_note.value
-      },
-
-      home: home.value,
-      updated: new Date().toLocaleDateString("de-CH")
-    };
-
-    localStorage.setItem("petData", JSON.stringify(data));
+    localStorage.setItem("petData", JSON.stringify(pet));
     alert("Gespeichert – index.html neu laden");
   }
 
-  function resetData() {
-    localStorage.removeItem("petData");
-    alert("Reset – Default aktiv");
-  }
+  // INIT
+  $("name").value = pet.name || "";
+  $("pet_id").value = pet.pet_id || "";
+  $("subtitle").value = pet.subtitle || "";
+  $("birthdate").value = pet.birthdate || "";
+
+  if (pet.image) $("p_img").src = pet.image;
+
+  ["name","pet_id","subtitle","birthdate"].forEach(id =>
+    $(id).addEventListener("input", updatePreview)
+  );
+
+  updatePreview();
 </script>
+
 </body>
 </html>
