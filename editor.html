@@ -5,162 +5,163 @@
 <title>PET-ID Editor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔥 Cache komplett deaktivieren -->
+<!-- Cache komplett deaktivieren (Browser + Cloudflare) -->
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
 <style>
-  :root {
-    --bg: #f6f6f6;
-    --card: #ffffff;
-    --accent: #d8b48a;
-    --text: #2b2b2b;
-    --muted: #777;
-  }
+:root {
+  --bg: #f6f6f6;
+  --card: #ffffff;
+  --accent: #d8b48a;
+  --text: #2b2b2b;
+  --muted: #777;
+}
 
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
+* {
+  box-sizing: border-box;
+}
 
-  /* ===============================
-     🔐 LOCK SCREEN
-     =============================== */
-  .lock-wrapper {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-  }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
-  .lock {
-    width: 100%;
-    max-width: 520px;
-    background: var(--card);
-    padding: 32px;
-    border-radius: 18px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    text-align: center;
-  }
+/* ===============================
+   🔐 LOCK SCREEN
+   =============================== */
+.lock-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
 
-  .lock h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
+.lock {
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  text-align: center;
+}
 
-  .lock input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
+.lock h2 {
+  margin: 0 0 20px 0;
+}
 
-  .lock button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    background: var(--accent);
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-  }
+.lock input {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 16px auto;
+  display: block;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
 
-  /* ===============================
-     ✏️ EDITOR
-     =============================== */
-  .editor {
-    display: none;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 32px;
-  }
+.lock button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
+/* ===============================
+   ✏️ EDITOR
+   =============================== */
+.editor {
+  display: none;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+@media (max-width: 900px) {
   .grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 32px;
+    grid-template-columns: 1fr;
   }
+}
 
-  @media (max-width: 900px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
 
-  .card {
-    background: var(--card);
-    border-radius: 18px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-  }
+.card-inner {
+  padding: 28px 32px;
+}
 
-  /* Basis-Padding */
-  .card-inner {
-    padding: 26px 32px;
-  }
+h2 {
+  margin: 0 0 12px 0;
+}
 
-  /* ✅ OPTISCHER AUSGLEICH:
-     rechte Grid-Spalte bekommt mehr Luft */
-  .grid > .card:nth-child(even) .card-inner {
-    padding-right: 48px;
-  }
+label {
+  display: block;
+  font-size: 13px;
+  margin-top: 14px;
+  color: var(--muted);
+}
 
-  h2 {
-    margin-top: 0;
-    margin-bottom: 14px;
-  }
+/* 🎯 ALLE Eingabefelder bewusst schmäler */
+.card-inner input,
+.card-inner textarea {
+  width: 100%;
+  max-width: 480px;
+  margin: 6px auto 0 auto;
+  display: block;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
 
-  label {
-    display: block;
-    font-size: 13px;
-    margin-top: 14px;
-    color: var(--muted);
-  }
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
 
-  input,
-  textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-  }
+input[type="file"] {
+  padding: 10px;
+}
 
-  input[type="file"] {
-    padding: 10px;
-  }
+.actions {
+  grid-column: 1 / -1;
+}
 
-  textarea {
-    resize: vertical;
-    min-height: 70px;
-  }
+.actions button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+}
 
-  .actions {
-    grid-column: 1 / -1;
-  }
-
-  .actions button {
-    width: 100%;
-    padding: 16px;
-    border-radius: 14px;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 12px;
-  }
-
-  .download {
-    background: #4caf50;
-    color: #fff;
-  }
+.download {
+  background: #4caf50;
+  color: #fff;
+}
 </style>
 </head>
 
@@ -270,39 +271,6 @@ function downloadJSON() {
       subtitle: subtitle.value,
       image: imageFile ? imageFile.name : "",
       last_updated: new Date().toISOString().slice(0,10)
-    },
-    animal: {
-      species: species.value,
-      gender: gender.value,
-      birthdate: birthdate.value,
-      color: color.value,
-      breed: breed.value,
-      castrated: castrated.value,
-      outdoor: outdoor.value,
-      chipped: chipped.value,
-      vaccinated: vaccinated.value,
-      microchip: microchip.value,
-      note: note.value
-    },
-    owners: [
-      { name: o1_name.value, phone: o1_phone.value, email: o1_email.value },
-      { name: o2_name.value, phone: o2_phone.value, email: o2_email.value }
-    ],
-    vet: {
-      practice: vet_practice.value,
-      doctor: vet_doctor.value,
-      phone: vet_phone.value,
-      email: vet_email.value,
-      website: vet_website.value
-    },
-    emergency: {
-      clinic: em_clinic.value,
-      address_html: em_address.value,
-      phone: em_phone.value,
-      note: em_note.value
-    },
-    home: {
-      address_html: home.value
     }
   };
 
